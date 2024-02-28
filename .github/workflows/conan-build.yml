@@ -67,7 +67,7 @@ jobs:
         cp "$(conan config home)/profiles/${{ matrix.compiler }}" "$(conan config home)/profiles/${{ matrix.compiler }}-${{ matrix.compiler_version }}"
 
     - name: Install Conan dependencies
-      run: conan install . -pr ${{ matrix.compiler }}-${{ matrix.compiler_version }} -s build_type=${{ matrix.build_type }} -s compiler.cppstd=20
+      run: conan install . -pr:b ${{ matrix.compiler }}-${{ matrix.compiler_version }} -pr:h ${{ matrix.compiler }}-${{ matrix.compiler_version }} -s build_type=${{ matrix.build_type }} -s compiler.cppstd=20
     
     - name: Configure CMake
       run: cmake --preset ${{ steps.strings.outputs.conan-configure-preset }}
