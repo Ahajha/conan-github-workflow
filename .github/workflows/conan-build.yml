@@ -55,7 +55,7 @@ jobs:
             echo "conan-configure-preset=conan-default" >> "$GITHUB_OUTPUT"
         else
             echo "conan-configure-preset=conan-${BUILD_TYPE@L}" >> "$GITHUB_OUTPUT"
-            if [ ${{ matrix.compiler }} == "clang"]
+            if [ ${{ matrix.compiler }} == "clang" ]
             then
                 echo "cpp-compiler-name=clang++" >> "$GITHUB_OUTPUT"
             else
