@@ -78,7 +78,7 @@ jobs:
       # Add --args="-b ${{ github.head_ref }}" to conan config install during PRs if modifying the profiles.
       # Hardcoded repo name since it seems troublesome to set it dynamically.
       run: |
-        conan config install https://github.com/Ahajha/conan-github-workflow.git.git
+        conan config install https://github.com/Ahajha/conan-github-workflow.git
         cp "$(conan config home)/profiles/${{ matrix.compiler }}" "$(conan config home)/profiles/${{ matrix.compiler }}-${{ matrix.compiler_version }}"
 
     - name: Install Conan dependencies
