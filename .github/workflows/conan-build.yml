@@ -77,7 +77,7 @@ jobs:
     - name: Install Conan profile
       # Add --args="-b ${{ github.head_ref }}" to conan config install during PRs if modifying the profiles.
       run: |
-        conan config install ${{ github.server_url }}/${{ github.action_repository }}.git
+        conan config install ${{ github.action_path }}.git
         cp "$(conan config home)/profiles/${{ matrix.compiler }}" "$(conan config home)/profiles/${{ matrix.compiler }}-${{ matrix.compiler_version }}"
 
     - name: Install Conan dependencies
