@@ -1,0 +1,8 @@
+{% set compiler_version = profile_name.split('-')[1] %}
+
+[settings]
+arch=x86_64
+compiler=msvc
+compiler.runtime=dynamic
+compiler.version={{compiler_version}}
+os=Windows
