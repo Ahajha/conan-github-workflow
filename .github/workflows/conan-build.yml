@@ -63,7 +63,7 @@ jobs:
     
     - name: Install Conan profile
       run: |
-        conan config install ${{ github.server_url }}/${{ github.workflow_ref }}
+        conan config install ${{ github.server_url }}/${{ github.repository }}.git --args="-b ${{ github.base_ref }}"
         cp "$(conan config home)/profiles/${{ matrix.compiler }}" "$(conan config home)/profiles/${{ matrix.compiler }}-${{ matrix.compiler_version }}"
 
     - name: Install Conan dependencies
