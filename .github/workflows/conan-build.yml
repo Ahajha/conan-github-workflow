@@ -55,8 +55,18 @@ jobs:
             echo "conan-configure-preset=conan-default" >> "$GITHUB_OUTPUT"
         else
             echo "conan-configure-preset=conan-${BUILD_TYPE@L}" >> "$GITHUB_OUTPUT"
+            if [ ${{ matrix.compiler }} == "clang"]
+            then
+                echo "cpp-compiler-name=clang++" >> "$GITHUB_OUTPUT"
+            else
+                echo "cpp-compiler-name=g++" >> "$GITHUB_OUTPUT"
+            fi
         fi
         echo "conan-build-preset=conan-${BUILD_TYPE@L}" >> "$GITHUB_OUTPUT"
+
+    - name: Install compiler
+      if: ${{ startsWith(matrix.os, 'ubuntu') }}
+      run: sudo apt install ${{ steps.strings.outputs.cpp-compiler-name }}-${{ matrix.compiler_version }}
 
     - name: Install Conan
       run: pip install conan
