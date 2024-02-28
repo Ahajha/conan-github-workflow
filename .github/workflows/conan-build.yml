@@ -55,18 +55,21 @@ jobs:
             echo "conan-configure-preset=conan-default" >> "$GITHUB_OUTPUT"
         else
             echo "conan-configure-preset=conan-${BUILD_TYPE@L}" >> "$GITHUB_OUTPUT"
-            if [ ${{ matrix.compiler }} == "clang" ]
-            then
-                echo "apt-package-name=clang" >> "$GITHUB_OUTPUT"
-            else
-                echo "apt-package-name=g++" >> "$GITHUB_OUTPUT"
-            fi
         fi
         echo "conan-build-preset=conan-${BUILD_TYPE@L}" >> "$GITHUB_OUTPUT"
 
     - name: Install compiler
       if: ${{ startsWith(matrix.os, 'ubuntu') }}
-      run: sudo apt install ${{ steps.strings.outputs.apt-package-name }}-${{ matrix.compiler_version }}
+      run: |
+        if [ ${{ matrix.compiler }} == "clang" ]
+        then
+            wget https://apt.llvm.org/llvm.sh
+            chmod +x llvm.sh
+            sudo ./llvm.sh ${{ matrix.compiler_version }}
+            rm llvm.sh
+        else
+            sudo apt install g++-${{ matrix.compiler_version }} -y
+        fi
 
     - name: Install Conan
       run: pip install conan
