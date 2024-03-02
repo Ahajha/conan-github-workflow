@@ -91,4 +91,4 @@ jobs:
       run: cmake --build --preset ${{ steps.strings.outputs.conan-build-preset }}
 
     - name: Test
-      run: ctest --preset ${{ steps.strings.outputs.conan-build-preset }}
+      run: ctest --preset ${{ steps.strings.outputs.conan-build-preset }} --output-on-failure
